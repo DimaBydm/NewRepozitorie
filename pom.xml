@@ -8,68 +8,110 @@
     <artifactId>Framework345</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- Зависимости, которые необходимы для работы проекта
+     берем в мавен репозитории   -->
 
     <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
-
-    <groupId>junit</groupId>
-
-    <artifactId>junit</artifactId>
-
-    <version>4.13</version>
-
-    <scope>test</scope>
-
-</dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
 
         <dependency>
-
-    <groupId>org.seleniumhq.selenium</groupId>
-
-    <artifactId>selenium-java</artifactId>
-
-    <version>3.141.59</version>
-
-</dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>2.2.2</version>
+        </dependency>
 
         <dependency>
-
-    <groupId>net.serenity-bdd</groupId>
-
-    <artifactId>serenity-core</artifactId>
-
-    <version>2.2.2</version>
-
-</dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.7</version>
+        </dependency>
 
         <dependency>
-
-    <groupId>org.slf4j</groupId>
-
-    <artifactId>slf4j-simple</artifactId>
-
-    <version>1.7.7</version>
-
-</dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
+            <version>2.2.2</version>
+        </dependency>
 
         <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>2.9.0</version>
+            <scope>test</scope>
+        </dependency>
 
-    <groupId>net.serenity-bdd</groupId>
-
-    <artifactId>serenity-junit</artifactId>
-
-    <version>2.2.2</version>
-
-</dependency>
         <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>7.3.0</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.3.0</version>
             <scope>test</scope>
         </dependency>
 
     </dependencies>
 
-</project>
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <serenity.version>1.8.21</serenity.version>
+        <serenity.maven.version>1.8.21</serenity.maven.version>
+    </properties>
 
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.serenity-bdd.maven.plugins</groupId>
+                <artifactId>serenity-maven-plugin</artifactId>
+                <version>${serenity.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>serenity-reports</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
